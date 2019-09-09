@@ -92,8 +92,8 @@ class MessagingViewController: UIViewController {
         }
         
         messagesView.snp.makeConstraints { (make) in
-            make.left.equalTo(self.view.snp.left)
-            make.right.equalTo(self.view.snp.right)
+            make.width.equalTo(self.containerView.snp.width)
+            make.centerX.equalTo(self.view.snp.centerX)
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.bottom.equalTo(self.containerView.snp.top)
         }
@@ -137,6 +137,7 @@ class MessagingViewController: UIViewController {
         self.view.updateConstraints()
     }
     
+    //MARK: GET ESTİMATED CELL SIZE ACCORDİNG TO THE GIVEN TEXT
     func getCellSize(text: String, width: Int) -> CGSize {
         
         let size = CGSize(width: width, height: 1000)
@@ -158,6 +159,8 @@ extension MessagingViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "messageCell", for: indexPath) as! MessageCell
+        
+        //MARK: CHECK IF THE MESSAGE BELONGS TO SELF
         if let isSelf = messages[indexPath.row].isSelf {
             cell.setupCell(
                 imageUrl: "https://www.library.caltech.edu/sites/default/files/styles/headshot/public/default_images/user.png?itok=1HlTtL2d",
@@ -182,7 +185,7 @@ extension MessagingViewController: UICollectionViewDelegate, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = self.view.bounds.width - 20
-        let height = self.getCellSize(text: messages[indexPath.row].text ?? "", width: Int(width)).height + 60
+        let height = self.getCellSize(text: messages[indexPath.row].text ?? "", width: Int(width)).height + 25
         return CGSize(width: width, height: height)
     }
 }

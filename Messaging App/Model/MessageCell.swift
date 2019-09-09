@@ -55,15 +55,9 @@ class MessageCell: UICollectionViewCell {
             }
         }
         
-//        messageView.translatesAutoresizingMaskIntoConstraints = false
-//        messageView.topAnchor.constraint(equalTo: profileImage.topAnchor).isActive = true
-//        NSLayoutConstraint(item: messageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: self.getCellSize(text: messageText, width: Int(width * 0.7)).height).isActive = true
-//        NSLayoutConstraint(item: messageView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: CGFloat(width * 0.7)).isActive = true
-        
         messageView.snp.makeConstraints { (make) in
-//
             make.top.equalTo(self.profileImage.snp.top)
-            make.width.equalTo(Int(width * 0.7))
+            make.width.equalTo(CGFloat(width * 0.7))
             make.height.equalTo(self.getCellSize(text: messageText, width: Int(width * 0.7)).height)
             if selfMessage {
                 make.right.equalTo(self.profileImage.snp.left).offset(-10)
@@ -79,6 +73,7 @@ class MessageCell: UICollectionViewCell {
         }
     }
     
+    //MARK: GET ESTİMATED CELL SIZE ACCORDİNG TO THE GIVEN TEXT
     func getCellSize(text: String, width: Int) -> CGSize {
         
         let size = CGSize(width: width, height: 1000)
